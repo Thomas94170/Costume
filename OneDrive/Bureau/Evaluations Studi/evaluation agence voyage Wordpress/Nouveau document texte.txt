@@ -1,0 +1,135 @@
+Le voyage au Pakistan est une odyssée à travers l'histoire et la beauté de ses paysages. Pays encore peu visité, 
+vous découvrirez au Pakistan des sites remontant même à plusieurs millénaires à la croisée des chemins de différentes religions 
+et civilisations. Entre, mer, déserts et montagnes avec notamment 14 des plus hauts sommets du monde, 
+le pays regorge de beautés naturelles à explorer.
+
+Circuit de 9 jours ou selon formule à Hunza, Phandar et Shandur d'avril à octobre
+
+à partir de 621,30€ par pers.
+
+
+à propos
+Nous sommes l'une des principales entreprises touristiques du Pakistan, opérationnelle depuis 2011. Nous proposons à la fois
+
+packages personnalisés et standard, le package actuel est selon les services standard. Mais toi
+
+peut nous rejoindre et demander des visites plus sur mesure.
+À savoir avant de partir
+Durée : 9 jours
+Billets mobiles acceptés
+Confirmation instantanée
+Conditions d'annulation
+Si vous annulez au moins 4 jours avant la date de départ, l'annulation est gratuite.
+En dessous de ce délai nous nous gardons le droit de garder jusqu'à 50% du montant.
+
+Informations importantes
+
+Informations sur le départ
+La prise en charge est offerte.
+Nous pouvons venir chercher les participants en fonction de leur emplacement.
+Aéroports :
+Islamabad Intl Airport, Islamabad Pakistan
+La prise en charge à l'hôtel est offerte. Affichez la liste sur notre page de paiement pour savoir si votre hôtel y figure.
+Durée
+9 jours ou 18 jours
+Informations sur le retour
+Retour au point de départ
+Informations supplémentaires
+Vous recevrez la confirmation lors de la réservation
+Accès pour les personnes à mobilité réduite
+Transports publics proches
+Chaises enfant disponibles
+Transport accessible aux personnes à mobilité réduite
+Accessible aux personnes à mobilité réduite
+Déconseillé aux femmes enceintes
+La plupart des voyageurs peuvent participer
+Cette expérience nécessite des conditions météo clémentes. Elle est annulée en raison du mauvais temps ; on vous proposera une autre date ou le remboursement complet.
+Pour avoir lieu, cette expérience requiert un nombre minimum de voyageurs. Si elle est annulée parce que cette condition n'est pas remplie, on vous proposera une autre date ou le remboursement complet.
+Ce circuit/cette activité est privé(e). Seul votre groupe participera.
+
+
+
+Safare Travel To Pakistan
+8 rue des Mathurins, 75008 Paris
+
+Conditions Générales de Vente
+Mentions Légales
+
+
+Service Assistance
+01 53 94 94 94
+24h/24 7j/7
+
+Nous contacter par mail : 
+safare_pakistan@gmail.com
+
+
+Comment obtenir un visa de tourisme pakistanais?
+
+Un visa de tourisme à entrées multiples d’une durée de trente jours peut être délivré à l’arrivée aux groupes de touristes voyageant avec une agence agréée. 
+Les demandes de visa seront déposées exclusivement par l’organisateur pakistanais du voyage organisé.
+
+Quelles sont les formalités à accomplir pour voyager au Pakistan pendant l'épidémie du Covid 
+
+Toutes les explications nécessaires se trouvent à cette adresse :
+
+https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays-destination/pakistan/
+
+
+Sécurité
+
+Malheureusement, le Pakistan vit des périodes troubles en ce moment. Vous devez savoir que vous pouvez courir un risque.
+
+Veuillez lire les recommandations du ministère des affaires étrangères sur cette page : 
+
+https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays-destination/pakistan/#securite
+
+
+Santé
+
+Un séjour à l’étranger implique pour tout voyageur de prendre certaines précautions de santé.
+
+Veuillez lire les recommandations du ministère des affaires étrangères sur cette page : 
+
+https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays-destination/pakistan/#sante
+
+
+
+
+https://eval-studi-wordpress-safare.000webhostapp.com
+
+https://eval-studi-wordpress-safare.000webhostapp.com
+
+thomas.devweb94@gmail.com
+
+permalien https://eval-studi-wordpress-safare.000webhostapp.com/?p=123
+
+eval-studi-wordpress-safare.zd.lu
+
+Nom d'utilisateur:
+snxvhkgx
+Mot de passe:
+X6tCwTDd5mMyZa
+
+
+let player1 = 'Player-1';
+let player2 = 'Player-2';
+
+function names() {
+    player1 = prompt("Nom du joueur 1");
+    player2 = prompt("Nom du joueur 2");
+
+    document.querySelector('h2.p-1').innerHTML = player1;
+    document.querySelector('h2.p-2').innerHTML = player2;
+};
+
+names();
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Genos:wght@300&family=Lato:ital,wght@1,900&family=Zen+Kurenaido&display=swap');
+</style>
+
+
+font-family: 'Genos', sans-serif;
+    font-family: 'Zen Kurenaido', sans-serif;
