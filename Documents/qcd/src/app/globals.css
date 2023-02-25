@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Roboto&display=swap');
+
+/*composant Navbar */
+.navbar{
+    font-family: 'Roboto Condensed', sans-serif;
+
+  font-size: 20px;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+.logo{
+    background-image: url('../../public/image/qcd-logo.png');
+    width: 100px;
+    height: 100px;
+}
+
+/*composant About */
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 50px;
+  grid-row-gap: 0px;
+  }
+  
+  .div1 { grid-area: 1 / 4 / 5 / 7;
+   }
+  .div2 { grid-area: 2 / 1 / 5 / 4;
+    background-image: url('../../public/image/image1.jpg');
+background-position: cover;
+background-repeat: no-repeat; }
+
+  .about{
+    font-family: 'Roboto Condensed', sans-serif;
+    
+  }
+
+  .qcd{
+    color: #A00606;
+    font-family: 'Gajraj One', cursive;
+  }
+    
+
+  /*Modal */
+
+  button{
+    font-size: 30px;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+ 
+
+  /*Service */
+
+  .titreServ{
+    background-color: #A00606;
+    font-family: 'Gajraj One', cursive;
+    
+    letter-spacing: 1px;
+  }
+
+  .titleA,
+  .titleB,
+  .titleC{
+    font-family:  'Roboto Condensed', sans-serif; 
+    letter-spacing: 1px;
+  }
+
+  .phrase{
+    font-family: 'Roboto Condensed', sans-serif;
+  }
