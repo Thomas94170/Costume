@@ -2,13 +2,14 @@ import React from "react";
 import { motion, useScroll } from 'framer-motion'
 import { useState } from "react";
 import { useMediaQuery } from 'react-responsive'
-import Formulaire from "@/components/formulaire";
+import Login from "@/components/login"
+import Footer from "@/components/footer";
 import styles from '../app/page.module.css'
 import Nav from "@/components/nav";
 import "../app/globals.css"
 
 
-export default function Contact(){
+export default function Connexion(){
     const [isOpen, setIsOpen] = useState(false)
   const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' })
   const navVariants = isSmallScreen ? 
@@ -108,9 +109,9 @@ export default function Contact(){
             <Nav />
           </motion.div>
         <br/>
-        <Formulaire/>
+        <Login/>
         <br/>
-
+        <Footer/>
         </div>
         </>
     )

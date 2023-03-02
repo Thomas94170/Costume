@@ -11,6 +11,11 @@ export default function Nav() {
   return (
     <nav className={`${title.className} flex text-center space-y-6 text-md text-black flex-col uppercase list-none`}>
       <li>
+      <Link href="/connexion">
+        Mon compte
+      </Link> 
+      </li>
+      <li>
       <Link href="">
         le lieu
       </Link> 

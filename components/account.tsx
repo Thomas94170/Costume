@@ -4,11 +4,11 @@ import Link from "next/link";
 import "../app/globals.css"
 
 
-export default function Formulaire(){
+export default function Account(){
     return(
         <>
         <h1 className="text-lg font-medium leading-6 text-gray-900 titleContact">
-                  Un doute, une question, une demande particulière? Contactez moi je vous répondrais rapidement.
+                  Création de mon compte.
                 </h1>
         <br/>
        <form
@@ -59,87 +59,51 @@ export default function Formulaire(){
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
-
+                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label
+                      htmlFor="confirm-password"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Adresse mail
+                    </label>
+                    <input
+                    required
+                    type="text"
+                    name="email-address"
+                    id="email-address"
+                      
+                      
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
                   <div className="col-span-6 sm:col-span-4">
                     <label
                       htmlFor="email-address"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Addresse Mail
+                      Mot de passe
                     </label>
                     <input
                       required
-                      type="text"
-                      name="email-address"
-                      id="email-address"
+                      type="password"
+                      name="password"
+                      id="password"
                       
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
-
-                  <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="country"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Votre message
-                    </label>
-                    <input
-                      required
-                      type="textarea"
-                      name="message"
-                      id="message"
-                      style={{ height: '4em' }}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
                   <div className="col-span-6">
                     <label
-                      htmlFor="street-address"
+                      htmlFor="password"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Adresse
+                      Confirmer Mot de Passe
                     </label>
                     <input
                       required
-                      type="text"
-                      name="street-address"
-                      id="street-address"
-                      
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Ville
-                    </label>
-                    <input
-                      required
-                      type="text"
-                      name="city"
-                      id="city"
-                      
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      htmlFor="postal-code"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Code Postal
-                    </label>
-                    <input
-                      required
-                      type="text"
-                      name="postal-code"
-                      id="postal-code"
+                      type="password"
+                      name="confirm"
+                      id="confirm"
                       
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
