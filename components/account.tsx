@@ -1,10 +1,48 @@
 
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
 import "../app/globals.css"
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+
+export default function Account  ()  {
+  // je mets ici mon code pour la soumission du form
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState,
+    formState: { errors },watch
+  } = useForm();
+
+  const mdp = watch("mdp");
+  const confirm = watch("confirm");
+
+  const onSubmit = (data: any) => {
+    if (mdp !== confirm) {
+      alert("Les champs mot de passe et confirmation doivent être identiques.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    console.log(data);
+    alert(JSON.stringify(data));
+    axios
+      .post("http://localhost:5600/users", data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      setIsSubmitting(false);
+  };
 
 
-export default function Account(){
+
+
     return(
         <>
         <h1 className="text-lg font-medium leading-6 text-gray-900 titleContact">
@@ -12,6 +50,7 @@ export default function Account(){
                 </h1>
         <br/>
        <form
+        onSubmit={handleSubmit(onSubmit)}
           className="space-y-6"
           action=""
           method="POST"
@@ -34,13 +73,23 @@ export default function Account(){
                       Prénom
                     </label>
                     <input
+                     {...register("prenom", {
+                      required: true,
+                      minLength: 3,
+                      maxLength: 20,
+                    })}
                       required
                       type="text"
-                      name="first-name"
-                      id="first-name"
+                      name="prenom"
+                      id="prenom"
                       
                       className="mt-1 block w-fulNamel rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                     {errors.prenom && (
+                  <span className="block text-sm font-medium text-red-700">
+                    Ton prénom doit faire entre 3 et 20 caractères
+                  </span>
+                )}
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -51,13 +100,23 @@ export default function Account(){
                       Nom
                     </label>
                     <input
+                     {...register("nom", {
+                      required: true,
+                      minLength: 3,
+                      maxLength: 20,
+                    })}
                       required
                       type="text"
-                      name="last-name"
-                      id="last-name"
+                      name="nom"
+                      id="nom"
                      
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                     {errors.nom && (
+                  <span className="block text-sm font-medium text-red-700">
+                    Ton nom doit faire entre 3 et 20 caractères
+                  </span>
+                )}
                   </div>
                   <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                     <label
@@ -67,14 +126,23 @@ export default function Account(){
                       Adresse mail
                     </label>
                     <input
+                     {...register("email", {
+                      required: true,
+                      minLength: 3,
+                      maxLength: 30,
+                      pattern: /.*@.*/
+                    })}
                     required
                     type="text"
-                    name="email-address"
-                    id="email-address"
-                      
-                      
+                    name="email"
+                    id="email"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                     {errors.email && (
+                  <span className="block text-sm font-medium text-red-700">
+                    Ton mail doit inclure @ et faire entre 3 et 20 caractères
+                  </span>
+                )}
                   </div>
                   <div className="col-span-6 sm:col-span-4">
                     <label
@@ -84,13 +152,24 @@ export default function Account(){
                       Mot de passe
                     </label>
                     <input
+                    {...register("mdp", {
+                      required: true,
+                      minLength: 12,
+                      maxLength: 30,
+                      pattern: /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+                    })}
                       required
                       type="password"
-                      name="password"
-                      id="password"
+                      name="mdp"
+                      id="mdp"
                       
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                     {errors.mdp && (
+                  <span className="block text-sm font-medium text-red-700">
+                    Minimum 12 caractères avec 1 majuscule et 1 caractère spécial
+                  </span>
+                )}
                   </div>
                   <div className="col-span-6">
                     <label
@@ -117,6 +196,7 @@ export default function Account(){
           
             <button
               type="submit"
+              disabled={isSubmitting}
               className=" evenement ml-3 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Soumettre
@@ -130,4 +210,5 @@ export default function Account(){
         
        </>
     )
-}
+
+    }
