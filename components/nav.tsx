@@ -31,7 +31,7 @@ export default function Nav() {
       </Link> 
       </li>
       <li>
-      <Link href="">
+      <Link href="/galerie">
         galerie
       </Link> 
       </li>

@@ -20,8 +20,8 @@ export default function Account  ()  {
   const confirm = watch("confirm");
 
   const onSubmit = (data: any) => {
-    if (mdp !== confirm) {
-      alert("Les champs mot de passe et confirmation doivent être identiques.");
+    if (mdp === confirm) {
+      alert("compte enregistré.");
       return;
     }
 
@@ -30,14 +30,16 @@ export default function Account  ()  {
     console.log(data);
     alert(JSON.stringify(data));
     axios
-      .post("http://localhost:5600/users", data)
+      .post("http://localhost:5600/usersInfos", data)
       .then((response) => {
         console.log(response);
+        setIsSubmitting(false);
       })
       .catch((error) => {
         console.error(error);
+        setIsSubmitting(false);
       });
-      setIsSubmitting(false);
+      
   };
 
 

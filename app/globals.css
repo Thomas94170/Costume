@@ -155,3 +155,10 @@ grid-row-gap: 0px;
 form{
   font-family: "Poppins", sans-serif;
 }
+
+/*page Galerie */
+
+.img-galerie{
+  height: 200px;
+  width: auto;
+}
