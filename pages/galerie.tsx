@@ -1,13 +1,16 @@
 import React from "react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll } from 'framer-motion'
 import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
-import Formulaire from "@/components/formulaire";
+
 import styles from '../app/page.module.css'
 import Nav from "@/components/nav";
 import "../app/globals.css"
+import Magalerie from "@/components/magalerie";
+import Footer from "@/components/footer";
 
 
 export default function Galerie(){
@@ -97,23 +100,9 @@ export default function Galerie(){
     },
   }
 
-  const [data, setData] = useState([]);
+  
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Appel de l'API route pour récupérer les données
-        const response = await fetch('http://localhost:5500/costume');
-        const jsonData = await response.json();
-
-        setData(jsonData);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    fetchData();
-  }, []);
+  
     
     return(
         <>
@@ -128,23 +117,16 @@ export default function Galerie(){
                 <Nav />
                 </motion.div>
             </div>
+            <br/>
+            <Magalerie/>
 
-        <div className="">
-            {data.map((item) => (
-                <div key={item.id}>
-                    <div className="border border-white m-3">
-                         <h3 className="text-lg">{item.titre}</h3>
-                            <p className="italic">{item.description}</p>
-                            <div className="flex justify-center ...">
-                                <img className="img-galerie m-2" src={item.imageUne} alt={item.titre}></img>
-                                <img className="img-galerie m-2" src={item.imageDeux} alt={item.titre}></img>
-                            </div>
-            
-                            <p>{item.prix} €/jour</p>
-                    </div>
-                </div>
-            ))}
-        </div>
+        
+        <Link href="/">
+        Retour
+      </Link> 
+      <br/>
+      <br/>
+      <Footer/>
         </>
     )
 }
