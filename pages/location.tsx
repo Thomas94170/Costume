@@ -130,10 +130,10 @@ export default function Location(){
                 </motion.div>
             </div>
 
-        <div className="grid grid-cols-3 gap-4  m-3">
+        <div className="grid grid-cols-3 gap-4 m-3">
             {data.map((item) => (
                 <div key={item.id}>
-                    <div className="m-5">
+                    <div className="m-5 border border-black rounded-md">
                          <h3 className="text-lg text-center">{item.titre}</h3>
                             
                             <div className="flex justify-center">
@@ -143,7 +143,7 @@ export default function Location(){
             
                             <p className="text-center">{item.prix} €/jour</p>
                             
-                            <Link href={`/product?id=${item.titre}`}>
+                            <Link href={`/product?titre=${item.titre}`}>
                                 <button className="loan">Louer</button>
                             </Link>
                     </div>

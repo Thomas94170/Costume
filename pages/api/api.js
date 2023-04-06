@@ -1,3 +1,5 @@
+import React from "react";
+
 export async function getCostumeByTitle(title) {
   const response = await fetch("http://localhost:5500/costume");
   const costumes = await response.json();
