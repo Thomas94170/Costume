@@ -8,25 +8,42 @@ import Loading from "@/components/loading";
 import Footer from "@/components/footer";
 
 function Product() {
-  const router = useRouter();
+    const router = useRouter();
 
-  // Récupérer les paramètres de l'URL avec querystring
-  const { title } = querystring.parse(router.asPath.split(/\?/)[1]);
-
-  const [costume, setCostume] = useState(null);
-
-  // Utiliser le titre pour récupérer les données du costume dans votre base de données
-  const fetchCostume = useCallback(async () => {
-    const costumeData = await getCostumeByTitle(title);
-    setCostume(costumeData);
-  }, [title]);
+    // Récupérer les paramètres de l'URL avec querystring
+    const { title } = querystring.parse(router.asPath.split(/\?/)[1]);
   
-  useEffect(() => {
-    fetchCostume();
-  }, [fetchCostume]);
+    const [costume, setCostume] = useState(null);
+    const [error, setError] = useState(null);
   
-
- 
+    // Utiliser le titre pour récupérer les données du costume dans votre base de données
+    const fetchCostume = useCallback(async () => {
+      try {
+        console.log('Fetching costume data...');
+        const costumeData = await getCostumeByTitle(title);
+        console.log('Costume data retrieved:', costumeData);
+        setCostume(costumeData);
+        console.log(getCostumeByTitle(title));
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching costume data:', error);
+        setError(error.message);
+      }
+    }, [title]);
+  
+    useEffect(() => {
+      console.log('useEffect called');
+      console.log(costume)
+      fetchCostume();
+    }, [fetchCostume]);
+  
+    if (error) {
+      return <p>Une erreur est survenue : {error}</p>;
+    }
+  
+    if (!costume) {
+      return <Loading />;
+    }
     return (
         <>
           {costume ? (

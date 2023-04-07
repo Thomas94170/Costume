@@ -142,10 +142,13 @@ export default function Location(){
                             </div>
             
                             <p className="text-center">{item.prix} €/jour</p>
-                            
-                            <Link href={`/product?titre=${item.titre}`}>
-                                <button className="loan">Louer</button>
-                            </Link>
+                            <br/>
+                            <div className="">
+                              <Link href={`/product?titre=${item.titre}`}>
+                                  <button className="loan ml-2">Louer</button>
+                              </Link>
+                            </div>
+                            <br/>
                     </div>
                 </div>
             ))}

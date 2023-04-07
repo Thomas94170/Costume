@@ -158,7 +158,6 @@ form{
 
 /*page Galerie */
 
-.img-galerie{
-  height: 200px;
-  width: auto;
+.img-galerie {
+  max-width: 150px;
 }
