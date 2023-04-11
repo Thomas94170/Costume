@@ -9,7 +9,7 @@ export default function Magalerie() {
         async function fetchData() {
           try {
             // Appel de l'API route pour récupérer les données
-            const response = await fetch('http://localhost:5500/gallerie');
+            const response = await fetch('http://localhost:5400/gallerie');
             const jsonData = await response.json();
     
             setData(jsonData);

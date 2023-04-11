@@ -104,7 +104,7 @@ export default function Location(){
     async function fetchData() {
       try {
         // Appel de l'API route pour récupérer les données
-        const response = await fetch('http://localhost:5500/costume');
+        const response = await fetch('http://localhost:5400/costume');
         const jsonData = await response.json();
 
         setData(jsonData);
@@ -144,7 +144,7 @@ export default function Location(){
                             <p className="text-center">{item.prix} €/jour</p>
                             <br/>
                             <div className="">
-                              <Link href={`/product?titre=${item.titre}`}>
+                              <Link href={`/product/${item.titre}`}>
                                   <button className="loan ml-2">Louer</button>
                               </Link>
                             </div>
