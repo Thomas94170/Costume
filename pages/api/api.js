@@ -1,9 +1,10 @@
-import React from "react";
+import axios from "axios";
 
-export async function getCostumeByTitle(title) {
-  const response = await fetch(
-    `http://localhost:5500/costume?titre=${encodeURIComponent(title)}`
+export async function getCostumeByTitle(titre) {
+  const response = await axios.get(
+    `http://localhost:5500/costume?titre=${encodeURIComponent(titre)}`
   );
-  const data = await response.json();
+  const data = response.data;
+  console.log(data);
   return data;
 }
