@@ -9,6 +9,7 @@ import Formulaire from "@/components/formulaire";
 import styles from '../app/page.module.css'
 import Nav from "@/components/nav";
 import "../app/globals.css"
+import Footer from "@/components/footer";
 
 
 export default function Location(){
@@ -144,9 +145,10 @@ export default function Location(){
                             <p className="text-center">{item.prix} €/jour</p>
                             <br/>
                             <div className="">
-                              <Link href={`/product/${item.titre}`}>
+                            <Link href={`/product/${encodeURIComponent(item.titre)}`}>
                                   <button className="loan ml-2">Louer</button>
                               </Link>
+
                             </div>
                             <br/>
                     </div>
@@ -156,6 +158,10 @@ export default function Location(){
         <Link href="/">
             Retour
         </Link> 
+        <br/>
+        <br/>
+        <br/>
+        <Footer/>
         </>
     )
 }
