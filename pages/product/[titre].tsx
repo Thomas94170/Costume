@@ -34,19 +34,44 @@ function Product({ costume }: {costume:Costume}) {
   const [clickCount, setClickCount] = useState(0); // Initialise le compteur de clics à 0
   const [errorMessage, setErrorMessage] = useState("");
   
-  
-
 
   const handleAddToCart = () => {
     if (clickCount < 3) {
       setClickCount((prevClickCount) => prevClickCount + 1);
-      //setClickCount(clickCount + 1);
       setErrorMessage("");
       
+      // Ajouter le costume au localStorage
+      const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
+      const newCount = cartItems[costume.titre] ? cartItems[costume.titre] + 1 : 1;
+      cartItems[costume.titre] = newCount;
+      localStorage.setItem('cart', JSON.stringify(cartItems));
     } else {
       setErrorMessage("Le produit n'est disponible qu'en 3 exemplaires.");
     }
   };
+
+  useEffect(() => {
+    // Récupérer les articles ajoutés au panier depuis le localStorage
+    const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
+    const itemCount = cartItems[costume?.titre] || 0;
+    setClickCount(itemCount);
+  }, []);
+
+  const cartItems = JSON.parse(
+    typeof window !== 'undefined' && localStorage.getItem('cart') || '{}'
+  );
+  const cart = Object.entries(cartItems).map(([title, count]) => {
+    return (
+    <>
+       <div key={title}>
+        <p>{count} x {title}</p>
+      </div>
+    </>
+     
+    );
+  });
+
+
   if (router.isFallback) {
     return <Loading/>;
   }
@@ -54,6 +79,7 @@ function Product({ costume }: {costume:Costume}) {
   if (!costume) {
     return <p>Costume not found</p>;
   }
+  
   
 
   return (
@@ -69,27 +95,21 @@ function Product({ costume }: {costume:Costume}) {
           <p className="text-center">{costume.prix} €/jour</p>
         </div>
         <div className="fenetre border border-black rounded-md bg-gray-200">
-          <div className="flex flex-col">
+        <div className="flex flex-col">
+            {cart}
             <Cart count={clickCount}/>
             <br/>
             <br/>
-            <div>Produit sélectionné</div>
             <div>
-              {clickCount > 0 && 
-                <div>
-                 {clickCount} produit(s) ajouté(s) au panier.
-                 <p className="text-center">{costume.titre}</p>
-                 <img className="img-product m-2" src={costume.imageUne} alt={costume.titre} />
-                </div>
-                
-              }
-             {errorMessage && <div>{errorMessage}</div>}
+             {errorMessage && <div>{errorMessage}
+            </div>}
             <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4" onClick={handleAddToCart}>
               Ajouter au panier
             </button>
             <Link href={""}>
               <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">Voir mon panier</button>
             </Link>
+            <Link href='/location'>  <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">Ajouter d'autres articles</button></Link>
           </div>
         </div>
 </div>
