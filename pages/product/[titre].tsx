@@ -74,19 +74,16 @@ function Product({ costume }: {costume:Costume}) {
             <br/>
             <br/>
             <div>Produit sélectionné</div>
-            {clickCount > 0 && (
-              <div>
-                  
-                  {clickCount > 0 && <div>{clickCount} produit(s) ajouté(s) au panier.</div>}
-                  {errorMessage && <div>{errorMessage}</div>}
-                <div>{costume.titre}</div>
+            <div>
+              {clickCount > 0 && 
                 <div>
-                  <img className="img-product m-2" src={costume.imageUne} alt={costume.titre} />
+                 {clickCount} produit(s) ajouté(s) au panier.
+                 <p className="text-center">{costume.titre}</p>
+                 <img className="img-product m-2" src={costume.imageUne} alt={costume.titre} />
                 </div>
-                <div>{costume.prix} €/jour</div>
-              </div>
-            )}
-            
+                
+              }
+             {errorMessage && <div>{errorMessage}</div>}
             <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4" onClick={handleAddToCart}>
               Ajouter au panier
             </button>
@@ -95,7 +92,7 @@ function Product({ costume }: {costume:Costume}) {
             </Link>
           </div>
         </div>
-
+</div>
     
         
       </div>
