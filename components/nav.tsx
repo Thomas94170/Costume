@@ -16,7 +16,7 @@ export default function Nav() {
       </Link> 
       </li>
       <li>
-      <Link href="">
+      <Link href="/lieu">
         le lieu
       </Link> 
       </li>

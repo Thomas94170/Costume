@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { useRouter} from "next/router";
 import { getCostumeByTitle } from "../api/api";
 import { GetStaticPropsContext } from 'next';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import Loading from "@/components/loading";
 import Footer from "@/components/footer";
-import Cart from "@/components/cart";
+
 
 
 interface Costume {
@@ -50,11 +52,19 @@ function Product({ costume }: {costume:Costume}) {
     }
   };
 
+ 
+
   useEffect(() => {
     // Récupérer les articles ajoutés au panier depuis le localStorage
     const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
     const itemCount = cartItems[costume?.titre] || 0;
     setClickCount(itemCount);
+
+    const timer = setTimeout(() => {
+      localStorage.clear(); // vider le localStorage après 10 minutes
+    }, 10 * 60 * 1000);
+    return () => clearTimeout(timer);
+
   }, []);
 
   const cartItems = JSON.parse(
@@ -64,7 +74,7 @@ function Product({ costume }: {costume:Costume}) {
     return (
     <>
        <div key={title}>
-        <p>{count} x {title}</p>
+        <p> <FontAwesomeIcon icon={ faShoppingCart } />{count} x {title}</p>
       </div>
     </>
      
@@ -97,19 +107,26 @@ function Product({ costume }: {costume:Costume}) {
         <div className="fenetre border border-black rounded-md bg-gray-200">
         <div className="flex flex-col">
             {cart}
-            <Cart count={clickCount}/>
+            
             <br/>
             <br/>
             <div>
              {errorMessage && <div>{errorMessage}
             </div>}
-            <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4" onClick={handleAddToCart}>
+            <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4" 
+            onClick={handleAddToCart}>
               Ajouter au panier
             </button>
-            <Link href={""}>
-              <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">Voir mon panier</button>
+            <Link href='/achat'>
+              <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">
+                Voir mon panier
+              </button>
             </Link>
-            <Link href='/location'>  <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">Ajouter d'autres articles</button></Link>
+            <Link href='/location'>
+              <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">
+                Ajouter d'autres articles
+              </button>
+            </Link>
           </div>
         </div>
 </div>
