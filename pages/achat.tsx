@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Panier from "@/components/panier";
+import Footer from "@/components/footer";
 
 
 export default function Achat (){
@@ -13,6 +14,7 @@ if (typeof window !== "undefined") {
         <>
         <Panier cartItems={cartItems}/>
         <Link href='/location'>Retour</Link>
+        <Footer/>
 
         </>
     )
