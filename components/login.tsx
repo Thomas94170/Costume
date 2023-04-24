@@ -23,29 +23,31 @@ export default function Formulaire(){
     event.preventDefault();
   
     try {
-      const response = await fetch("http://localhost:5400/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, mdp }),
-      });
-  
+      const response = await fetch(`http://localhost:5400/user?email=${email}&mdp=${mdp}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
       if (response.ok) {
-        // Check if user exists in database
         const user = await response.json();
         if (user) {
-          // Redirect to profile page if login is successful
           window.location.href = "/profil";
+          console.log(response)
         } else {
           setError("Adresse mail ou mot de passe incorrect");
         }
       } else {
-        setError("Adresse mail ou mot de passe incorrect");
+        setError(error + "!response.ok ");
+        console.log(error)
       }
     } catch (error) {
       console.error("Error:", error);
+      console.log("Descriptif erreur: " + error);
       setError("Une erreur s'est produite, veuillez réessayer plus tard");
     }
   };
+  
   
  
   
