@@ -1,6 +1,7 @@
 
 import React from "react";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import "../app/globals.css"
 
@@ -21,37 +22,8 @@ export default function Formulaire(){
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    try {
-      const response = await fetch(`http://localhost:5400/user?email=${email}&mdp=${mdp}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-      if (response.ok) {
-        const user = await response.json();
-        if (user) {
-          window.location.href = "/profil";
-          console.log(response)
-        } else {
-          setError("Adresse mail ou mot de passe incorrect");
-        }
-      } else {
-        setError(error + "!response.ok ");
-        console.log(error)
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      console.log("Descriptif erreur: " + error);
-      setError("Une erreur s'est produite, veuillez réessayer plus tard");
-    }
   };
-  
-  
- 
-  
-
+   
     return(
         <>
         <h1 className="text-lg font-medium leading-6 text-gray-900 titleContact">
@@ -109,10 +81,11 @@ export default function Formulaire(){
           {error && <p className="text-red-500">{error}</p>}
           <div className="flex justify-end">
           
-            <button
-              type="submit"
-              className=" evenement ml-3 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
+          <button
+            onClick={() => signIn("credentials", { email, mdp })}
+            type="submit"
+            className=" evenement ml-3 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
               Soumettre
             </button>
           </div>
