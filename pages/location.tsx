@@ -132,9 +132,11 @@ export default function Location(){
             </div>
 
         <div className="grid grid-cols-3 gap-4 m-3">
+        <ul className="list-none">
             {data.map((item) => (
-                <div key={item.id}>
-                    <div className="m-5 border border-black rounded-md">
+              
+                <li key={item.id}>
+                    <div className="m-5 border-b-4 border-black  ">
                          <h3 className="text-lg text-center">{item.titre}</h3>
                             
                             <div className="flex justify-center">
@@ -152,8 +154,10 @@ export default function Location(){
                             </div>
                             <br/>
                     </div>
-                </div>
+                </li>
+                
             ))}
+            </ul>
         </div>
         <Link href="/">
             Retour
