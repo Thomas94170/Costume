@@ -24,15 +24,27 @@ export default function Formulaire(){
       );
       const data = await response.json();
       if (response.ok && data) {
-        router.push(`/profil/${data.email}`); // Rediriger vers la page profil
-        console.log(response,data)
+        const token = data.token;
+        const userInfoResponse = await fetch("http://localhost:5400/getUserInfo", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const userInfo = await userInfoResponse.json();
+        router.push(`/profil/${userInfo.email}`); // Rediriger vers la page profil
+        console.log(userInfo);
       } else {
-        setError("Invalid credentials");
+        setError("Identifiants invalides");
       }
     } catch (error) {
       setError(error.message);
     }
   };
+  
+
+  //à l'intérieur de la const handleSubmit je récupère le token qui a été générer lors de la connexion
+  //je récupère toute les infos du user connecté qui devront etre dans le body de la réponse
+  //mettre une deuxieme fetch localhost: 5400/getUser avec toute les infos
+  //router.push disparait et c est la ou vient le nouveau fetch qui aura aussi dans le body de sa réponse le token généré
+
    
     return(
         <>
