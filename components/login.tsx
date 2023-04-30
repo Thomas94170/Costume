@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 import Link from "next/link";
 import "../app/globals.css"
 
@@ -14,21 +15,26 @@ export default function Formulaire(){
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        `http://localhost:5400/user?email=${email}&mdp=${password}`,
+      
+      const response = await axios.post(
+        `http://localhost:5400/user`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          email,
+          mdp: password,
         }
       );
-      const data = await response.json();
-      if (response.ok && data) {
-        const token = data.token;
-        const userInfoResponse = await fetch("http://localhost:5400/getUserInfo", {
+      const data = response.data;
+      
+      if (response.status === 200 && data) {
+        console.log(data)
+        const token = response.data[0].token;
+        console.log(token)
+        
+        const userInfoResponse = await axios.get("http://localhost:5400/getUserInfo", {
           headers: { "Authorization": `Bearer ${token}` }
         });
-        const userInfo = await userInfoResponse.json();
+        console.log(token)
+        const userInfo = userInfoResponse.data;
         router.push(`/profil/${userInfo.email}`); // Rediriger vers la page profil
         console.log(userInfo);
       } else {
