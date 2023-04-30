@@ -30,7 +30,7 @@ export default function Account  ()  {
     console.log(data);
     alert(JSON.stringify(data));
     axios
-      .post("http://localhost:5400/user", data)
+      .post("http://localhost:5400/setUsers", data)
       .then((response) => {
         console.log(response);
         setIsSubmitting(false);

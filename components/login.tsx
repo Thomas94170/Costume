@@ -19,7 +19,7 @@ export default function Formulaire(){
       const response = await axios.post(
         `http://localhost:5400/user`,
         {
-          email,
+          email: email,
           mdp: password,
         }
       );
@@ -27,6 +27,8 @@ export default function Formulaire(){
       
       if (response.status === 200 && data) {
         console.log(data)
+        console.log("gotdata:" ,data)
+        console.log(response.status)
         const token = response.data[0].token;
         console.log(token)
         
