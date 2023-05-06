@@ -15,30 +15,31 @@ export default function Formulaire(){
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      
       const response = await axios.post(
-        `http://localhost:5400/user`,
+        `http://localhost:5400/user/checkCredentials`,
         {
           email: email,
           mdp: password,
         }
       );
-      const data = response.data;
-      
-      if (response.status === 200 && data) {
-        console.log(data)
+      const {data, status} = response;
+      if (status === 200 && data) {
         console.log("gotdata:" ,data)
-        console.log(response.status)
-        const token = response.data[0].token;
+        console.log(status)
+        const token = data.token;
         console.log(token)
+
+        localStorage.setItem("token", token);
         
-        const userInfoResponse = await axios.get("http://localhost:5400/getUserInfo", {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-        console.log(token)
-        const userInfo = userInfoResponse.data;
-        router.push(`/profil/${userInfo.email}`); // Rediriger vers la page profil
-        console.log(userInfo);
+        
+        router.push(`profil/${data.user.email}`); // Rediriger vers la page profil
+        console.log('erreur ici')
+        console.log(data.user);
+        setTimeout(() => {
+          if (router.pathname  !== `profil/profil/${data.user.email}`) {
+            console.log("Redirection vers la page profil a échoué");
+          }
+        }, 10000);
       } else {
         setError("Identifiants invalides");
       }
