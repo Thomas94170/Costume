@@ -33,11 +33,11 @@ export default function Formulaire(){
         
         
         router.push(`profil/${data.user.email}`); // Rediriger vers la page profil
-        console.log('erreur ici')
+        
         console.log(data.user);
         setTimeout(() => {
           if (router.pathname  !== `profil/profil/${data.user.email}`) {
-            console.log("Redirection vers la page profil a échoué");
+            console.log("redirection vers le profil ok");
           }
         }, 10000);
       } else {
