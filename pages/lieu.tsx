@@ -3,7 +3,11 @@ import FadeB from "@/components/fadeB";
 import FadeC from "@/components/fadeC";
 import FadeD from "@/components/fadeD";
 import FadeE from "@/components/fadeE";
+import FadeG from "@/components/fadeG";
+import Footer from "@/components/footer";
 import React from "react";
+import Link from "next/link";
+import "../app/globals.css"
 
 export default function Lieu(){
 
@@ -24,6 +28,12 @@ export default function Lieu(){
         <FadeC/>
         <FadeD/>
         <FadeE/>
+        <br/>
+        <FadeG/>
+        <br/>
+        <br/>
+        <Link href='/'>Retour</Link>
+        <Footer/>
         </>
     )
 }
