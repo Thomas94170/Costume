@@ -10,6 +10,7 @@ export default function Formulaire(){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+ 
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -31,7 +32,8 @@ export default function Formulaire(){
 
         localStorage.setItem("token", token);
         
-        
+       
+
         router.push(`profil/${data.user.email}`); // Rediriger vers la page profil
         
         console.log(data.user);
