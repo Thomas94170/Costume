@@ -250,7 +250,9 @@ export default function Profil(){
                 className="ml-2"
                   type="text"
                   defaultValue={nom}
-                  {...register("nom", { required: true })}
+                  {...register("nom", { required: true,
+                    minLength: 1,
+                    maxLength: 20, })}
                 />
                 {errors.nom && <span>Ce champ est requis</span>}
                 <br />
@@ -259,7 +261,9 @@ export default function Profil(){
                 className="ml-2"
                   type="text"
                   defaultValue={prenom}
-                  {...register("prenom", { required: true })}
+                  {...register("prenom", { required: true,
+                    minLength: 3,
+                    maxLength: 20, })}
                 />
                 {errors.prenom && <span>Ce champ est requis</span>}
                 <br />
@@ -268,9 +272,14 @@ export default function Profil(){
                 className="ml-2"
                   type="email"
                   defaultValue={email}
-                  {...register("email", { required: true })}
+                  {...register("email", { required: true,
+                    minLength: 3,
+                      maxLength: 30,
+                      pattern: /.*@.*/ })}
                 />
-                {errors.email && <span>Ce champ est requis</span>}
+                {errors.email && <span className="block text-sm font-medium text-red-700">
+                    Ton mail doit inclure @ et faire entre 3 et 20 caractères
+                  </span>}
                 <br />
                 <input
                   type="submit"

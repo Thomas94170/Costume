@@ -29,8 +29,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ titre: 
 export async function getStaticPaths() {
   return { paths: [], fallback: true };
 }
-
-function Product({ costume }: {costume:Costume}) {
+function Product({ costume }: {costume?:Costume}) {
   const router = useRouter();
   console.log(costume)
   const [clickCount, setClickCount] = useState(0); // Initialise le compteur de clics à 0
@@ -38,18 +37,19 @@ function Product({ costume }: {costume:Costume}) {
   
 
   const handleAddToCart = () => {
-    if (clickCount < 3) {
+   
       setClickCount((prevClickCount) => prevClickCount + 1);
       setErrorMessage("");
       
       // Ajouter le costume au localStorage
       const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
-      const newCount = cartItems[costume.titre] ? cartItems[costume.titre] + 1 : 1;
-      cartItems[costume.titre] = newCount;
+      const newCount = cartItems[costume.titre]?.count? cartItems[costume.titre].count + 1 : 1;
+      cartItems[costume.titre] ={
+        count : newCount,
+        prix : costume.prix || "0", 
+      };
       localStorage.setItem('cart', JSON.stringify(cartItems));
-    } else {
-      setErrorMessage("Le produit n'est disponible qu'en 3 exemplaires.");
-    }
+   
   };
 
  
@@ -57,27 +57,29 @@ function Product({ costume }: {costume:Costume}) {
   useEffect(() => {
     // Récupérer les articles ajoutés au panier depuis le localStorage
     const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
-    const itemCount = cartItems[costume?.titre] || 0;
+    const itemCount = cartItems[costume?.titre]?.count || 0;
     setClickCount(itemCount);
+  }, []); // Utilisation d'un tableau vide pour exécuter l'effet uniquement lors du montage initial
 
+  
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       localStorage.clear(); // vider le localStorage après 10 minutes
-    }, 10 * 60 * 1000);
+    }, 5 * 60 * 1000);
     return () => clearTimeout(timer);
-
   }, []);
 
   const cartItems = JSON.parse(
     typeof window !== 'undefined' && localStorage.getItem('cart') || '{}'
   );
-  const cart = Object.entries(cartItems).map(([title, count]) => {
+  const cart = Object.entries(cartItems).map(([titre, { count, prix }]) => {
+    const total = count * prix;
     return (
-    <>
-       <div key={title}>
-        <p> <FontAwesomeIcon icon={ faShoppingCart } />{count} x {title}</p>
+      <div key={titre}>
+        <p> <FontAwesomeIcon icon={ faShoppingCart } />{count} x {titre} ({prix}€ chacun)</p>
+        <p>Total: {total}€</p>
       </div>
-    </>
-     
     );
   });
 
@@ -85,6 +87,7 @@ function Product({ costume }: {costume:Costume}) {
   if (router.isFallback) {
     return <Loading/>;
   }
+
 
   if (!costume) {
     return <p>Costume not found</p>;

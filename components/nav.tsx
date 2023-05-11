@@ -26,11 +26,6 @@ export default function Nav() {
       </Link> 
       </li>
       <li>
-      <Link href="">
-        tarifs
-      </Link> 
-      </li>
-      <li>
       <Link href="/galerie">
         galerie
       </Link> 
