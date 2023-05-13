@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus, faPersonWalkingDashedLineArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -52,7 +53,12 @@ const handleDesincrement =(titre) =>{
   //Mise à jour du localStorage
   localStorage.setItem('cart', JSON.stringify(updatedRemovedCartItems));
   window.location.reload();
+
+
 }
+
+
+localStorage.setItem('prixTotalPanier', Number(prixTotalPanier));
 
   return (
     <>
@@ -69,8 +75,16 @@ const handleDesincrement =(titre) =>{
       ) : (
         <p>Le panier est vide.</p>
       )}
-                <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">Passer au paiement</button>
+                <Link href='/location'>
+              <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">
+                Ajouter d'autres articles
+              </button>
+            </Link>
+            <br/>
                 
+                <Link href='/checkout'>
+                <button className="bg-black text-white py-2 px-4 rounded mt-4 mb-4">Passer au paiement</button>
+            </Link>
             </div>
         </div>
       
