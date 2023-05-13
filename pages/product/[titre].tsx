@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import Loading from "@/components/loading";
 import Footer from "@/components/footer";
+import Logout from "@/components/logout";
 
 
 
@@ -98,12 +99,15 @@ function Product({ costume }: {costume?:Costume}) {
   return (
     <>
     {isLogged && 
+    <>
               <div>
                  <div className="flex">
                 <p className="inline-block">Connecté</p>
                 <span className="inline-block mt-3 ml-2"><img src="https://img.icons8.com/emoji/48/null/green-circle-emoji.png" height={10} width={10}/></span>
               </div>
               </div>
+              <Logout/>
+    </>
               }
     <div className="resume">
         <div className="prod1">

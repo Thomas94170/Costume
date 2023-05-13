@@ -10,6 +10,7 @@ import styles from '../app/page.module.css'
 import Nav from "@/components/nav";
 import "../app/globals.css"
 import Footer from "@/components/footer";
+import Logout from "@/components/logout";
 
 
 export default function Location(){
@@ -137,12 +138,15 @@ export default function Location(){
             </div>
 
             {isLogged && 
+            <>
               <div>
                  <div className="flex">
                 <p className="inline-block">Connecté</p>
                 <span className="inline-block mt-3 ml-2"><img src="https://img.icons8.com/emoji/48/null/green-circle-emoji.png" height={10} width={10}/></span>
               </div>
               </div>
+              <Logout/>
+             </>
               }
 
         <div className="grid grid-cols-3 gap-4 m-3">

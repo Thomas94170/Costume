@@ -3,6 +3,7 @@ import { motion, useScroll } from 'framer-motion'
 import { useState } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Formulaire from "@/components/formulaire";
+import Logout from "@/components/logout";
 import styles from '../app/page.module.css'
 import Nav from "@/components/nav";
 import "../app/globals.css"
@@ -95,8 +96,22 @@ export default function Contact(){
     },
   }
     
+  const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
+
+
     return(
         <>
+         {isLogged && 
+        <>
+              <div>
+                 <div className="flex">
+                <p className="inline-block">Connecté</p>
+                <span className="inline-block mt-3 ml-2"><img src="https://img.icons8.com/emoji/48/null/green-circle-emoji.png" height={10} width={10}/></span>
+              </div>
+              </div>
+              <Logout/>
+              </>
+              }
         <div className="coverContact">
         <motion.svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" data-isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} 
           className={`${styles.menuToggle} fixed top-0 right-0 mt-4 mr-4 md-mt-8 md-mr-12 w-6 h-6 cursor-pointer`}>
