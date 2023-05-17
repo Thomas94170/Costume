@@ -6,6 +6,7 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 function Panier({ cartItems ={} }) {
   const [prixTotalPanier, setPrixTotalPanier] = useState(0);
+  const [updatedCartItems, setUpdatedCartItems] = useState({});
 
   useEffect(() => {
     const total = Object.entries(cartItems).reduce(
@@ -16,14 +17,27 @@ function Panier({ cartItems ={} }) {
     localStorage.setItem('prixTotalPanier', total); // Stocker la valeur dans le localStorage
   }, [cartItems]);
 
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem('cartItems');
+    if (savedCartItems) {
+      setUpdatedCartItems(JSON.parse(savedCartItems));
+    } else {
+      setUpdatedCartItems(cartItems);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+  }, [updatedCartItems]);
 
 
     console.log("cartItems", cartItems);
 
    
 
-    const cart = cartItems && Object.entries(cartItems).map(([titre, { count, prix }]) => {
-      const total = count * prix; 
+    const cart = Object.entries(updatedCartItems).map(([titre, { count, prix }]) => {
+      const total = count * prix;
+  
      
     return (
       <div key={titre}>
@@ -41,54 +55,39 @@ function Panier({ cartItems ={} }) {
   });
 
   const handleIncrement = (titre) => {
-    const updatedCartItems = { ...cartItems };
-    updatedCartItems[titre].count += 1;
-  
-    // Mise à jour du localStorage
-    localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-    setCartItems(updatedCartItems); // Mettre à jour le state du panier
-  
+    const updatedItems = { ...updatedCartItems };
+    updatedItems[titre].count += 1;
+
+    setUpdatedCartItems(updatedItems);
+
     // Mise à jour du prix total
-    const total = Object.entries(updatedCartItems).reduce(
+    const total = Object.entries(updatedItems).reduce(
       (acc, [_, { count, prix }]) => acc + count * prix,
       0
     );
     setPrixTotalPanier(total);
-    localStorage.setItem('prixTotalPanier', total); // Stocker la nouvelle valeur dans le localStorage
-  
-    // Recharge la page pour afficher les changements
-    if (typeof window !== 'undefined') {
-      window.location.reload();
-    }
+    localStorage.setItem('prixTotalPanier', total);
   };
 
-//soustraire un article du panier
+  
+  const handleDesincrement = (titre) => {
+    const updatedItems = { ...updatedCartItems };
+    updatedItems[titre].count -= 1;
 
-const handleDesincrement = (titre) => {
-  const updatedRemovedCartItems = { ...cartItems };
-  updatedRemovedCartItems[titre].count -= 1;
+    if (updatedItems[titre].count === 0) {
+      delete updatedItems[titre];
+    }
 
-  if (updatedRemovedCartItems[titre].count === 0) {
-    delete updatedRemovedCartItems[titre];
-  }
+    setUpdatedCartItems(updatedItems);
 
-  // Mise à jour du localStorage
-  localStorage.setItem('cart', JSON.stringify(updatedRemovedCartItems));
-  setCartItems(updatedRemovedCartItems); // Mettre à jour le state du panier
-
-  // Mise à jour du prix total
-  const total = Object.entries(updatedRemovedCartItems).reduce(
-    (acc, [_, { count, prix }]) => acc + count * prix,
-    0
-  );
-  setPrixTotalPanier(total);
-  localStorage.setItem('prixTotalPanier', total); // Stocker la nouvelle valeur dans le localStorage
-
-  // Recharge la page pour afficher les changements
-  if (typeof window !== 'undefined') {
-    window.location.reload();
-  }
-};
+    // Mise à jour du prix total
+    const total = Object.entries(updatedItems).reduce(
+      (acc, [_, { count, prix }]) => acc + count * prix,
+      0
+    );
+    setPrixTotalPanier(total);
+    localStorage.setItem('prixTotalPanier', total);
+  };
 
 
 
