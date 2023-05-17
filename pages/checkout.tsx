@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import  Link  from "next/link";
 import Logout from "@/components/logout";
 import Paypal from "@/components/paypal";
@@ -7,9 +8,17 @@ import Footer from "@/components/footer";
 
 
 
-const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
+//const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
 
 export default function Checkout(){
+
+    const [isLogged, setIsLogged] = useState(false);
+
+    useEffect(() => {
+      const token = window.localStorage.getItem("token");
+      setIsLogged(token !== null);
+    }, []);
+
     return(
         <>
         {isLogged && 

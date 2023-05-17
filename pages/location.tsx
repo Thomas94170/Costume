@@ -146,6 +146,8 @@ export default function Location(){
               </div>
               </div>
               <Logout/>
+              <br/>
+              <Link href='/achat'><button className="">Voir mon Panier</button></Link>
              </>
               }
 
