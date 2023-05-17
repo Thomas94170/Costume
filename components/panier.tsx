@@ -4,18 +4,18 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-function Panier({ cartItems ={} }) {
+function Panier({ cartItems = {} }) {
   const [prixTotalPanier, setPrixTotalPanier] = useState(0);
   const [updatedCartItems, setUpdatedCartItems] = useState({});
 
   useEffect(() => {
-    const total = Object.entries(cartItems).reduce(
+    const total = Object.entries(updatedCartItems).reduce(
       (acc, [_, { count, prix }]) => acc + count * prix,
       0
     );
     setPrixTotalPanier(total);
     localStorage.setItem('prixTotalPanier', total); // Stocker la valeur dans le localStorage
-  }, [cartItems]);
+  }, [updatedCartItems]);
 
   useEffect(() => {
     const savedCartItems = localStorage.getItem('cartItems');
@@ -29,6 +29,26 @@ function Panier({ cartItems ={} }) {
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   }, [updatedCartItems]);
+
+  const handleIncrement = (titre) => {
+    const updatedItems = { ...updatedCartItems };
+    updatedItems[titre].count += 1;
+
+    setUpdatedCartItems(updatedItems);
+  };
+   
+
+  
+  const handleDesincrement = (titre) => {
+    const updatedItems = { ...updatedCartItems };
+    updatedItems[titre].count -= 1;
+
+    if (updatedItems[titre].count === 0) {
+      delete updatedItems[titre];
+    }
+
+    setUpdatedCartItems(updatedItems);
+  };
 
 
     console.log("cartItems", cartItems);
@@ -54,41 +74,7 @@ function Panier({ cartItems ={} }) {
     );
   });
 
-  const handleIncrement = (titre) => {
-    const updatedItems = { ...updatedCartItems };
-    updatedItems[titre].count += 1;
-
-    setUpdatedCartItems(updatedItems);
-
-    // Mise à jour du prix total
-    const total = Object.entries(updatedItems).reduce(
-      (acc, [_, { count, prix }]) => acc + count * prix,
-      0
-    );
-    setPrixTotalPanier(total);
-    localStorage.setItem('prixTotalPanier', total);
-  };
-
-  
-  const handleDesincrement = (titre) => {
-    const updatedItems = { ...updatedCartItems };
-    updatedItems[titre].count -= 1;
-
-    if (updatedItems[titre].count === 0) {
-      delete updatedItems[titre];
-    }
-
-    setUpdatedCartItems(updatedItems);
-
-    // Mise à jour du prix total
-    const total = Object.entries(updatedItems).reduce(
-      (acc, [_, { count, prix }]) => acc + count * prix,
-      0
-    );
-    setPrixTotalPanier(total);
-    localStorage.setItem('prixTotalPanier', total);
-  };
-
+ 
 
 
   return (

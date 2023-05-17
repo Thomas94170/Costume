@@ -34,35 +34,34 @@ function Product({ costume }: {costume?:Costume}) {
   const router = useRouter();
   console.log(costume)
   const [clickCount, setClickCount] = useState(0); // Initialise le compteur de clics à 0
+  const [cartItems, setCartItems] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   
 
   const handleAddToCart = () => {
-   
-      setClickCount((prevClickCount) => prevClickCount + 1);
-      setErrorMessage("");
-      
-      // Ajouter le costume au localStorage
-      const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
-      const newCount = cartItems[costume.titre]?.count? cartItems[costume.titre].count + 1 : 1;
-      cartItems[costume.titre] ={
-        count : newCount,
-        prix : costume.prix || "0", 
-      };
-      localStorage.setItem('cart', JSON.stringify(cartItems));
-   
+    setClickCount(prevClickCount => prevClickCount + 1);
+    const newCartItems = {
+      ...cartItems,
+      [costume.titre]: {
+        count: (cartItems[costume.titre]?.count || 0) + 1,
+        prix: costume.prix || '0',
+      },
+    };
+    setCartItems(newCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(newCartItems));
   };
+
 
  
 
   useEffect(() => {
-    // Récupérer les articles ajoutés au panier depuis le localStorage
-    const cartItems = JSON.parse(localStorage.getItem('cart') || '{}');
-    const itemCount = cartItems[costume?.titre]?.count || 0;
-    setClickCount(itemCount);
-  }, []); // Utilisation d'un tableau vide pour exécuter l'effet uniquement lors du montage initial
+    const savedCartItems = JSON.parse(localStorage.getItem('cartItems') || '{}');
+    setCartItems(savedCartItems);
+  }, []);
 
-  
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -71,9 +70,7 @@ function Product({ costume }: {costume?:Costume}) {
     return () => clearTimeout(timer);
   }, []);
 
-  const cartItems = JSON.parse(
-    typeof window !== 'undefined' && localStorage.getItem('cart') || '{}'
-  );
+
   const cart = Object.entries(cartItems).map(([titre, { count, prix }]) => {
     const total = count * prix;
     return (
