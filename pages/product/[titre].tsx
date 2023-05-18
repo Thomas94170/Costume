@@ -65,7 +65,7 @@ function Product({ costume }: {costume?:Costume}) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.clear(); // vider le localStorage après 10 minutes
+      localStorage.removeItem('cartItems'); // vider le localStorage après 10 minutes
     }, 5 * 60 * 1000);
     return () => clearTimeout(timer);
   }, []);

@@ -1,12 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import PaypalExpressBtn from 'react-paypal-express-checkout';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
 
 function Paypal() {
   const [prixTotalPanier, setPrixTotalPanier] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState(null);
 
   useEffect(() => {
     const getPrixTotalPanier = () => {
@@ -17,29 +18,18 @@ function Paypal() {
     getPrixTotalPanier();
   }, []);
 
-        const onSuccess = (payment) => {
-        console.log("Paiement effectué avec succès!", payment);           		
-        }
- 
-        const onCancel = (data) => {          
-        console.log('Paiement annulé!', data);           
-        }
- 
-        const onError = (err) => {           
-        console.log("Error!", err);          
-        }
-  
-        let env = 'sandbox'; // sandbox pour l'essai, production pour un vrai projet
-        let currency = 'EUR'; 
-        let total = 1; // valeur de 1 $
-        // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
- 
-        const client = {
-            sandbox: "ATwGx98qRYnpiclmWrMZ2-c2wKyw-P21wsgJ8vyIUbaw8LRPDZbGkcY1vBctXUCWDWbYWh5NF2Wej7hw", 
-           
-        }
-  
+  const handlePaymentSuccess = () => {
+    setPaymentStatus('success');
+  };
 
+  const handlePaymentError = () => {
+    setPaymentStatus('error');
+  };
+
+  const handlePaymentCancel = () => {
+    setPaymentStatus('canceled');
+  };     
+ 
   return (
     <>
       <div className="flex items-center justify-center h-screen">
@@ -63,7 +53,27 @@ function Paypal() {
     <button className='' type="submit">Payer<FontAwesomeIcon className='ml-3' icon={faCreditCard} /></button>
   </form>
   <br/>
-          <PaypalExpressBtn env={env} client={client} currency={currency} total={total} onError={onError} onSuccess={onSuccess} onCancel={onCancel} />
+  <PayPalScriptProvider options={{ "client-id": "ATwGx98qRYnpiclmWrMZ2-c2wKyw-P21wsgJ8vyIUbaw8LRPDZbGkcY1vBctXUCWDWbYWh5NF2Wej7hw", components: "buttons"  }}>
+  <PayPalButtons 
+             onApprove={(data, actions) => {
+              return handlePaymentSuccess();
+            }}
+            onError={(err) => {
+              handlePaymentError();
+            }}
+            onCancel={(data) => {
+              handlePaymentCancel();
+            }} />
+</PayPalScriptProvider>
+{paymentStatus === 'success' && (
+            <p>Transaction acceptée. Code de statut : 200</p>
+          )}
+          {paymentStatus === 'error' && (
+            <p>Transaction interrompue. Code de statut : 400</p>
+          )}
+          {paymentStatus === 'canceled' && (
+            <p>Transaction annulée. Code de statut : 400</p>
+          )}
         </div>
       </div>
     </>
