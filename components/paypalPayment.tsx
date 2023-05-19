@@ -1,9 +1,11 @@
 import React from 'react';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function PaypalPayment(){
     const [paymentStatus, setPaymentStatus] = useState(null);
+    const router = useRouter();
 
     const handlePaymentSuccess = () => {
         setPaymentStatus('success');
@@ -16,7 +18,17 @@ export default function PaypalPayment(){
     
       const handlePaymentCancel = () => {
         setPaymentStatus('canceled');
-      };     
+      };  
+      
+      useEffect(() => {
+        if (paymentStatus === 'success') {
+          const timeout = setTimeout(() => {
+            router.push('/success');
+          }, 6000);
+    
+          return () => clearTimeout(timeout); // Clear timeout on component unmount
+        }
+      }, [paymentStatus, router]);
 
     return(
         <>
@@ -32,9 +44,7 @@ export default function PaypalPayment(){
               handlePaymentCancel();
             }} />
 </PayPalScriptProvider>
-{paymentStatus === 'success' && (
-            <p>Transaction acceptée. Code de statut : 200</p>
-          )}
+
           {paymentStatus === 'error' && (
             <p>Transaction interrompue. Code de statut : 400</p>
           )}

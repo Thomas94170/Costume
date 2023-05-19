@@ -25,14 +25,15 @@ function Paypal() {
     <>
       <div className="flex items-center justify-center h-screen">
         <div className="bg-gray-300 p-6 rounded-md shadow-lg">
-          <h2 className="text-2xl">Paiement</h2>
+          <h2 className="text-2xl text-center">Paiement</h2>
           <br />
-          <p>Prix total du panier: {prixTotalPanier} €</p>
+          <p className='text-center'>Prix total du panier: {prixTotalPanier} €</p>
          <br/>
          <br/>
          
     <StripePayment/>
-   
+   <br/>
+   <p className='text-center'> ou </p>
   <br/>
   <PaypalPayment/>
         </div>
