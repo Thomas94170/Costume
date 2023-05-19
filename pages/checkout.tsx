@@ -1,4 +1,5 @@
 import React from "react";
+import useRouter from "next/router"
 import { useEffect, useState } from "react";
 import  Link  from "next/link";
 import Logout from "@/components/logout";
@@ -11,13 +12,23 @@ import Footer from "@/components/footer";
 //const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
 
 export default function Checkout(){
-
+   
     const [isLogged, setIsLogged] = useState(false);
 
     useEffect(() => {
       const token = window.localStorage.getItem("token");
       setIsLogged(token !== null);
     }, []);
+
+    if (!isLogged) {
+      return (
+        <>
+          <div className="text-3xl text-center">Oupsss... Vous ne devriez pas être là !</div>
+          <Link href="/">Retour</Link>
+        </>
+      );
+    }
+  
 
     return(
         <>

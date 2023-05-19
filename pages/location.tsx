@@ -14,6 +14,7 @@ import Logout from "@/components/logout";
 
 
 export default function Location(){
+  const [isLogged, setIsLogged] = useState(typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem('token') !== null);
     const [isOpen, setIsOpen] = useState(false)
   const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' })
   const navVariants = isSmallScreen ? 
@@ -119,9 +120,15 @@ export default function Location(){
   }, []);
 
 
-  const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
+ // const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
 
-
+ const handleRentClick = (item) => {
+  if (isLogged) {
+    router.push(`/product/${encodeURIComponent(item.titre)}`);
+  } else {
+    alert('Veuillez vous connecter pour louer cet article.');
+  }
+};
     
     return(
         <>
@@ -167,11 +174,19 @@ export default function Location(){
                             <p className="text-center">{item.prix} €/jour</p>
                             <br/>
                             <div className="">
-                            <Link href={`/product/${encodeURIComponent(item.titre)}`}>
-                                  <button className="loan ml-2">Louer</button>
-                              </Link>
-
-                            </div>
+                  {isLogged ? (
+                    <button className="loan ml-2">
+                    <Link href={`/product/${encodeURIComponent(item.titre)}`}>
+                      Louer
+                    </Link>
+                    </button>
+                  ) : (
+                    <>
+                      <p className="text-center">Veuillez vous connecter pour louer cet article.</p>
+                     
+                    </>
+                  )}
+                </div>
                             <br/>
                     </div>
                 </li>

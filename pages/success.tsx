@@ -1,5 +1,8 @@
 import React from "react";
 import  Link  from "next/link";
+import { useEffect, useState } from "react";
+
+
 
 function generateRandomCode() {
     // Générer 5 chiffres aléatoires
@@ -19,6 +22,26 @@ function generateRandomCode() {
 
 export default function Success(){
     const numCommand = generateRandomCode()
+    const [isLogged, setIsLogged] = useState(false);
+
+    useEffect(() => {
+      const token = window.localStorage.getItem("token");
+      setIsLogged(token !== null);
+    }, []);
+
+    if (!isLogged) {
+      return (
+        <>
+        <div className="flex items-center justify-center h-screen">
+          <div className="bg-gray-300 p-6 rounded-md shadow-lg">
+            <p className="text-3xl text-center">Oupsss... Vous ne devriez pas être là !</p>
+              <Link href="/">Retour</Link>
+          </div>
+        </div>
+
+        </>
+      );
+    }
 
     return(
         <>

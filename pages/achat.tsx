@@ -1,11 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Panier from "@/components/panier";
 import Footer from "@/components/footer";
 import Logout from "@/components/logout";
 
 
 export default function Achat (){
+  const router = useRouter();
     let cartItems = {};
 if (typeof window !== "undefined") {
   cartItems = JSON.parse(localStorage.getItem("cart")) || {};
@@ -13,6 +16,16 @@ if (typeof window !== "undefined") {
 }
 
 const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
+
+useEffect(() => {
+  if (!isLogged) {
+    router.push('/connexion'); // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+  }
+}, [isLogged, router]);
+
+if (!isLogged) {
+  return null; // Affiche une page vide pendant la redirection
+}
 
     return(
         <>
@@ -33,4 +46,8 @@ const isLogged = typeof window !== 'undefined' && window.localStorage && window.
 
         </>
     )
-}
+
+   
+  }
+
+  
