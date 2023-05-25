@@ -16,9 +16,11 @@ import Nav from "@/components/nav";
 
 
 
+
 export default function Profil(){
   const router = useRouter();
   const [userInfo, setUserInfo] = useState(null);
+  const [orders, setOrders] = useState([]);
   const [divVisible, setDivVisible] = useState(false);
   const [cmdVisible, setCmdVisible] = useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -142,6 +144,38 @@ export default function Profil(){
       console.log('erreur token ici')
       return;
     }
+
+    const fetchOrders = async () => {
+      try {
+        const ordersResponse = await axios.post("http://localhost:5400/order");
+        console.log(ordersResponse + ' de fetchOrders')
+        const orders = ordersResponse.data;
+        console.log(ordersResponse.data)
+        setOrders(orders);
+        console.log(orders);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const fetchOrderById = async (userId) => {
+      try {
+        const body = 'test';
+        const orderResponse = await axios.post(
+          `http://localhost:5400/order/${userId}`,
+          body
+        );
+        
+        console.log(orderResponse + ' de fetchOrderById')
+        const order = orderResponse.data;
+        console.log(orderResponse.data)
+        setOrders(order);
+        console.log(order);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    
   
     const fetchUserInfo = async () => {
       try {
@@ -150,12 +184,16 @@ export default function Profil(){
       });
         const userInfo = userInfoResponse.data;
         setUserInfo(userInfo);
+        fetchOrderById(userInfo.userId);
       } catch (error) {
         console.error(error);
       }
     };
+    fetchOrders();
     fetchUserInfo();
   }, []);
+
+ 
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Supprimer le token du localStorage
@@ -210,7 +248,10 @@ export default function Profil(){
                 <p className="inline-block">Connecté</p>
                 <span className="inline-block mt-3 ml-2"><img src="https://img.icons8.com/emoji/48/null/green-circle-emoji.png" height={10} width={10}/></span>
               </div>
+              <br/>
+              
               </div>
+              
               }
               <br/>
               <br/>
@@ -306,6 +347,19 @@ export default function Profil(){
       {cmdVisible && (
         <>
           <p>Voir mes commandes</p>
+          <br/>
+          <div>
+          
+      {orders.length > 0 ? (
+        <ul>
+          {orders.map((order) => (
+            <li key={order._id}>{order.reference} - {order.date}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>Aucune commande trouvée.</p>
+      )}
+          </div>
           <button
             className="border border-black rounded-md bg-black text-white px-3 py-3"
             onClick={buttonReturnClick}

@@ -1,10 +1,14 @@
 import React from "react";
 import  Link  from "next/link";
 import { useEffect, useState } from "react";
+import Logout from "@/components/logout";
+import axios from "axios";
+
 
 
 
 function generateRandomCode() {
+ 
     // Générer 5 chiffres aléatoires
     const randomNumber = Math.floor(10000 + Math.random() * 90000);
   
@@ -21,13 +25,35 @@ function generateRandomCode() {
   }
 
 export default function Success(){
-    const numCommand = generateRandomCode()
+  // const numCommand = generateRandomCode()
     const [isLogged, setIsLogged] = useState(false);
+    const [numCommand, setNumCommand] = useState("");
+   
+    
 
     useEffect(() => {
       const token = window.localStorage.getItem("token");
       setIsLogged(token !== null);
+      console.log(token)
+      setNumCommand(generateRandomCode());
+      saveOrder();
     }, []);
+
+
+    const saveOrder = async () => {
+      const date = new Date().toISOString();
+      const orderData = {
+        numCommand,
+        date,
+      };
+  
+      try {
+        await axios.post("http://localhost:5400/order", orderData);
+        console.log("Order saved successfully");
+      } catch (error) {
+        console.error("Error saving order:", error);
+      }
+    };
 
     if (!isLogged) {
       return (
@@ -43,8 +69,23 @@ export default function Success(){
       );
     }
 
+   
+
     return(
         <>
+         {isLogged && 
+            <>
+              <div>
+                 <div className="flex">
+                <p className="inline-block">Connecté</p>
+                <span className="inline-block mt-3 ml-2"><img src="https://img.icons8.com/emoji/48/null/green-circle-emoji.png" height={10} width={10}/></span>
+              </div>
+              </div>
+              <Logout/>
+              <br/>
+             
+             </>
+              }
        <div className="flex items-center justify-center h-screen">
         <div className="bg-gray-300 p-6 rounded-md shadow-lg">
           <h2 className="text-2xl text-center">Paiement Réussi !</h2>

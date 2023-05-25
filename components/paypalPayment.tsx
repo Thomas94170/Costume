@@ -49,7 +49,7 @@ export default function PaypalPayment(){
             <p>Transaction interrompue. Code de statut : 400</p>
           )}
           {paymentStatus === 'canceled' && (
-            <p>Transaction annulée. Code de statut : 400</p>
+            <p>Transaction annulée. Vous pouvez toujours finaliser l'achat !</p>
           )}
         </>
     )

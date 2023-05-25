@@ -11,11 +11,13 @@ import Nav from "@/components/nav";
 import "../app/globals.css"
 import Footer from "@/components/footer";
 import Logout from "@/components/logout";
+import ProfileButton from "@/components/profileButton";
 
 
 export default function Location(){
   const [isLogged, setIsLogged] = useState(typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem('token') !== null);
-    const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [userInfo, setUserInfo] = useState(null);
   const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' })
   const navVariants = isSmallScreen ? 
   {
@@ -120,15 +122,7 @@ export default function Location(){
   }, []);
 
 
- // const isLogged = typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem("token") !== null;
-
- const handleRentClick = (item) => {
-  if (isLogged) {
-    router.push(`/product/${encodeURIComponent(item.titre)}`);
-  } else {
-    alert('Veuillez vous connecter pour louer cet article.');
-  }
-};
+ 
     
     return(
         <>
@@ -151,6 +145,8 @@ export default function Location(){
                 <p className="inline-block">Connecté</p>
                 <span className="inline-block mt-3 ml-2"><img src="https://img.icons8.com/emoji/48/null/green-circle-emoji.png" height={10} width={10}/></span>
               </div>
+              <br/>
+              <ProfileButton/>
               </div>
               <Logout/>
               <br/>
