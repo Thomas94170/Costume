@@ -3,6 +3,7 @@ import  Link  from "next/link";
 import { useEffect, useState } from "react";
 import Logout from "@/components/logout";
 import axios from "axios";
+import jwt from 'jsonwebtoken';
 
 
 
@@ -34,24 +35,42 @@ export default function Success(){
     useEffect(() => {
       const token = window.localStorage.getItem("token");
       setIsLogged(token !== null);
-      console.log(token)
+      console.log(token);
       setNumCommand(generateRandomCode());
-      saveOrder();
+      saveOrder(token);
     }, []);
 
 
-    const saveOrder = async () => {
-      const date = new Date().toISOString();
-      const orderData = {
-        numCommand,
-        date,
-      };
-  
-      try {
-        await axios.post("http://localhost:5400/order", orderData);
-        console.log("Order saved successfully");
-      } catch (error) {
-        console.error("Error saving order:", error);
+      const saveOrder = async (token) => {
+     
+    
+      const decodedToken = jwt.decode(token);
+      if (decodedToken ) {
+        const { id, email, nom, prenom } = decodedToken;
+        console.log(decodedToken);
+
+        const prixTotalPanier = localStorage.getItem("prixTotalPanier") || 0;
+      
+
+        console.log(localStorage.getItem("prixTotalPanier"))
+
+        const date = new Date().toISOString();
+        const orderData = {
+           userId : id,
+          reference : numCommand,
+          date : date,
+          prix : prixTotalPanier,
+       
+        };
+        console.log(orderData);
+        try {
+          await axios.post("http://localhost:5400/setOrders", orderData);
+          console.log("Commande sauvegardée");
+        } catch (error) {
+          console.error("Erreur dans la sauvegarde:", error);
+        }
+      }else{
+        console.log('erreur ne fonctionne pas')
       }
     };
 

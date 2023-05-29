@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 export default function ProfileButton() {
   const router = useRouter();
