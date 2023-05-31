@@ -1,5 +1,6 @@
 import React from "react";
 import  Link  from "next/link";
+import router from "next/router";
 import { useEffect, useState } from "react";
 import Logout from "@/components/logout";
 import axios from "axios";
@@ -25,29 +26,37 @@ function generateRandomCode() {
     return code;
   }
 
+ 
+
 export default function Success(){
-  // const numCommand = generateRandomCode()
+    const numCommand =generateRandomCode();
     const [isLogged, setIsLogged] = useState(false);
-    const [numCommand, setNumCommand] = useState("");
+    const [user, setUser] = useState(null);
+
+  
+   console.log(user)
    
-    
 
     useEffect(() => {
       const token = window.localStorage.getItem("token");
       setIsLogged(token !== null);
       console.log(token);
-      setNumCommand(generateRandomCode());
-      saveOrder(token);
+     // setNumCommand(generateRandomCode());
+     const userData = JSON.parse(localStorage.getItem("user"));
+      saveOrder(token, numCommand, userData);
+
+      
+      setUser(userData);
+
     }, []);
 
 
-      const saveOrder = async (token) => {
-     
-    
+      const saveOrder = async (token, numCommand, userData) => {
+      
       const decodedToken = jwt.decode(token);
       if (decodedToken ) {
-        const { id, email, nom, prenom } = decodedToken;
-        console.log(decodedToken);
+        const { id, email, nom, prenom } = userData;
+        console.log(userData);
 
         const prixTotalPanier = localStorage.getItem("prixTotalPanier") || 0;
       
@@ -56,7 +65,7 @@ export default function Success(){
 
         const date = new Date().toISOString();
         const orderData = {
-           userId : id,
+          userId : id,
           reference : numCommand,
           date : date,
           prix : prixTotalPanier,
@@ -64,7 +73,7 @@ export default function Success(){
         };
         console.log(orderData);
         try {
-          await axios.post("http://localhost:5400/setOrders", orderData);
+          await axios.post("http://localhost:5400/order/setOrders", orderData);
           console.log("Commande sauvegardée");
         } catch (error) {
           console.error("Erreur dans la sauvegarde:", error);

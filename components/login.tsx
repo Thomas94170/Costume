@@ -31,7 +31,7 @@ export default function Formulaire(){
         console.log(token)
 
         localStorage.setItem("token", token);
-        
+        localStorage.setItem("user", JSON.stringify(data.user));
        
 
         router.push(`profil/${data.user.email}`); // Rediriger vers la page profil
