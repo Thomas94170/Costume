@@ -8,6 +8,12 @@ const NewsletterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (email.length < 5 || !email.includes("@")) {
+        console.error("Adresse e-mail invalide.");
+        // Afficher un message d'erreur ou effectuer une action appropriée
+        return;
+      }
+
     try {
       const response = await axios.post('http://localhost:5400/mailchimp/api/subscribe', {email});
         console.log(email)
@@ -22,7 +28,7 @@ const NewsletterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="max-w-md">
         <p>Inscrivez vous afin de suivre nos actualités et recevoir des bons plans</p>
   <input
     type="email"

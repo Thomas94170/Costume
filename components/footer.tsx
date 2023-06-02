@@ -12,9 +12,17 @@ export default function Footer() {
   return (
     <footer className= "text-center">
       <div className="flex justify-around ">
-      <Link href="/ventes">Conditions générales de vente</Link>
-      <Link href="/utilisation">Conditions générales d'utilisation</Link>
-      <Link href="/confidentialite">Politique de confidentialité</Link>
+        <div className="ml-5 mr-5">
+        <Link href="/ventes">Conditions gen de vente</Link>
+        </div>
+        <div className="ml-5 mr-5">
+        <Link href="/utilisation">Conditions gen d'utilisation</Link>
+        </div>
+        <div className="ml-5 mr-5">
+        <Link href="/confidentialite">Politique de confidentialité</Link>
+        </div>
+      
+      
       <NewsletterForm/>
 </div>
       <p className="text-black">© 2021, Built with Next.js</p>
