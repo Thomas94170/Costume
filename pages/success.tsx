@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Logout from "@/components/logout";
 import axios from "axios";
 import jwt from 'jsonwebtoken';
+//import  sendConfirmationEmail  from "../../be-lokalcostume/backend/mailer/mailer.js";
+
 
 
 
@@ -75,6 +77,7 @@ export default function Success(){
         try {
           await axios.post("http://localhost:5400/order/setOrders", orderData);
           console.log("Commande sauvegardée");
+          sendConfirmationEmail(userData.email, numCommand);
         } catch (error) {
           console.error("Erreur dans la sauvegarde:", error);
         }

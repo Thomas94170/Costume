@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Raleway } from '@next/font/google'
 import { Unbounded } from '@next/font/google'
+import NewsletterForm from "./newsletter";
 
 
 const text = Raleway({ subsets: ['latin'] })
@@ -14,6 +15,7 @@ export default function Footer() {
       <Link href="/ventes">Conditions générales de vente</Link>
       <Link href="/utilisation">Conditions générales d'utilisation</Link>
       <Link href="/confidentialite">Politique de confidentialité</Link>
+      <NewsletterForm/>
 </div>
       <p className="text-black">© 2021, Built with Next.js</p>
     </footer>
