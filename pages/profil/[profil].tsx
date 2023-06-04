@@ -138,7 +138,9 @@ export default function Profil(){
 
 
   useEffect(() => {
+    
     const token = localStorage.getItem("token");
+    console.log(token);
     if (!token) {
       router.push("/login"); // Rediriger vers la page de login si le token n'est pas présent dans le localStorage
       console.log('erreur token ici')
@@ -158,14 +160,18 @@ export default function Profil(){
       }
     };
   
+
+    
+
     const fetchOrderById = async (userId) => {
+      
       try {
-        const body = 'test';
-        const orderResponse = await axios.post(
-          `http://localhost:5400/order/${userId}`,
-          body
-        );
         
+        const orderResponse = await axios.get(
+          `http://localhost:5400/order/${userId}`
+        
+        );
+        console.log("fonction fetchOrderById appelée")
         console.log(orderResponse + ' de fetchOrderById')
         const order = orderResponse.data;
         console.log(orderResponse.data)
@@ -179,20 +185,37 @@ export default function Profil(){
   
     const fetchUserInfo = async () => {
       try {
-        const userInfoResponse = await axios({method:"post", url:"http://localhost:5400/user/getUserInfo", 
-        headers: { "Authorization":'Bearer '+token}
-      });
-        const userInfo = userInfoResponse.data;
-        setUserInfo(userInfo);
-        fetchOrderById(userInfo.userId);
+        const storedUserInfo = localStorage.getItem("userInfo");
+        if (storedUserInfo) {
+          const userInfo = JSON.parse(storedUserInfo);
+          console.log("Utilisation des informations de l'utilisateur stockées en local");
+          console.log(userInfo);
+          setUserInfo(userInfo);
+          fetchOrderById(userInfo.userId);
+        } else {
+          const userInfoResponse = await axios({
+            method: "post",
+            url: "http://localhost:5400/user/getUserInfo",
+            headers: { "Authorization": "Bearer " + token },
+          });
+          const userInfo = userInfoResponse.data;
+          console.log("fonction fetchUserInfo appelée");
+          console.log(userInfo);
+          setUserInfo(userInfo);
+  
+          // Sauvegarder les informations de l'utilisateur dans le stockage local
+          localStorage.setItem("userInfo", JSON.stringify(userInfo));
+  
+          fetchOrderById(userInfo.userId);
+        }
       } catch (error) {
         console.error(error);
       }
     };
+  
     fetchOrders();
     fetchUserInfo();
   }, []);
-
  
 
   const handleLogout = () => {

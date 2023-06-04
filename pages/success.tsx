@@ -35,6 +35,9 @@ export default function Success(){
     const [isLogged, setIsLogged] = useState(false);
     const [user, setUser] = useState(null);
 
+
+    
+
   
    console.log(user)
    
@@ -45,7 +48,8 @@ export default function Success(){
       console.log(token);
      // setNumCommand(generateRandomCode());
      const userData = JSON.parse(localStorage.getItem("user"));
-      saveOrder(token, numCommand, userData);
+     const generatedNumCommand = generateRandomCode();
+      saveOrder(token,  generatedNumCommand, userData);
 
       
       setUser(userData);
