@@ -160,28 +160,30 @@ export default function Profil(){
       }
     };
   
-
-    
-
     const fetchOrderById = async (userId) => {
+      console.log("ici")
+      console.log(userId)
+    try {
       
-      try {
-        
-        const orderResponse = await axios.get(
-          `http://localhost:5400/order/${userId}`
-        
-        );
-        console.log("fonction fetchOrderById appelée")
-        console.log(orderResponse + ' de fetchOrderById')
-        const order = orderResponse.data;
-        console.log(orderResponse.data)
-        setOrders(order);
-        console.log(order);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    
+      const orderResponse = await axios({
+        method: "get",
+        url:
+        `http://localhost:5400/order/`,
+      });
+
+      console.log("fonction fetchOrderById appelée")
+      console.log(orderResponse + ' de fetchOrderById')
+      const order = orderResponse.data;
+      console.log(order)
+
+      //filtrer tt les orders et les comparer pour afficher uniquement les userId correspondants
+      const filteredOrders = orders.filter(order => order.userId === userId)
+      setOrders(filteredOrders);
+      console.log(filteredOrders);
+    } catch (error) {
+      console.error("message : " + error);
+    }
+  };
   
     const fetchUserInfo = async () => {
       try {
@@ -191,12 +193,16 @@ export default function Profil(){
           console.log("Utilisation des informations de l'utilisateur stockées en local");
           console.log(userInfo);
           setUserInfo(userInfo);
-          fetchOrderById(userInfo.userId);
+          fetchOrderById(userInfo.id);
         } else {
           const userInfoResponse = await axios({
             method: "post",
             url: "http://localhost:5400/user/getUserInfo",
-            headers: { "Authorization": "Bearer " + token },
+            headers: { "Authorization": "Bearer " + token,
+            "Access-Control-Allow-Origin": "http://localhost:3000", // Définir l'origine autorisée
+            "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE", // Définir les méthodes autorisées
+            "Access-Control-Allow-Headers": "Content-Type, Authorization", // Définir les en-têtes autorisés
+          },
           });
           const userInfo = userInfoResponse.data;
           console.log("fonction fetchUserInfo appelée");
@@ -206,7 +212,7 @@ export default function Profil(){
           // Sauvegarder les informations de l'utilisateur dans le stockage local
           localStorage.setItem("userInfo", JSON.stringify(userInfo));
   
-          fetchOrderById(userInfo.userId);
+          fetchOrderById(userInfo.id);
         }
       } catch (error) {
         console.error(error);
@@ -216,6 +222,9 @@ export default function Profil(){
     fetchOrders();
     fetchUserInfo();
   }, []);
+
+
+ 
  
 
   const handleLogout = () => {
@@ -230,7 +239,11 @@ export default function Profil(){
       await axios({
         method: "patch",
         url: `http://localhost:5400/user/${id}`,
-        headers: { "Authorization":'Bearer '+token},
+        headers: { "Authorization":'Bearer '+token,
+        "Access-Control-Allow-Origin": "http://localhost:3000", // Définir l'origine autorisée
+        "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE", // Définir les méthodes autorisées
+        "Access-Control-Allow-Headers": "Content-Type, Authorization", // Définir les en-têtes autorisés
+      },
         data: {
           nom: data.nom,
           prenom: data.prenom,

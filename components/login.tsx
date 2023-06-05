@@ -21,7 +21,8 @@ export default function Formulaire(){
         {
           email: email,
           mdp: password,
-        }
+        },
+       
       );
       const {data, status} = response;
       if (status === 200 && data) {

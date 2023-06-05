@@ -52,22 +52,13 @@ export default function Nav() {
 
   return (
     <nav className={`${title.className} flex text-center space-y-6 text-md text-black flex-col uppercase list-none`}>
-      <li>
-      {!userData && (
+      
         <li>
           <Link href="/connexion">
             Mon compte
           </Link> 
         </li>
-      )}
-      {userData && (
-        <li>
-          <Link href={`/profil/${userData}`}>
-            Accéder à mon profil
-          </Link> 
-        </li>
-      )}
-      </li>
+    
       <li>
       <Link href="/lieu">
         le lieu
