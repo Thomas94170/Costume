@@ -147,18 +147,7 @@ export default function Profil(){
       return;
     }
 
-    const fetchOrders = async () => {
-      try {
-        const ordersResponse = await axios.post("http://localhost:5400/order");
-        console.log(ordersResponse + ' de fetchOrders')
-        const orders = ordersResponse.data;
-        console.log(ordersResponse.data)
-        setOrders(orders);
-        console.log(orders);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  
   
     const fetchOrderById = async (userId) => {
       console.log("ici")
@@ -173,8 +162,8 @@ export default function Profil(){
 
       console.log("fonction fetchOrderById appelée")
       console.log(orderResponse + ' de fetchOrderById')
-      const order = orderResponse.data;
-      console.log(order)
+      const orders = orderResponse.data;
+      console.log(orders)
 
       //filtrer tt les orders et les comparer pour afficher uniquement les userId correspondants
       const filteredOrders = orders.filter(order => order.userId === userId)
@@ -219,7 +208,7 @@ export default function Profil(){
       }
     };
   
-    fetchOrders();
+   // fetchOrders();
     fetchUserInfo();
   }, []);
 
@@ -389,13 +378,14 @@ export default function Profil(){
       {orders.length > 0 ? (
         <ul>
           {orders.map((order) => (
-            <li key={order._id}>{order.reference} - {order.date}</li>
+            <li key={order._id}>{order.reference} - {order.date} - {order.prix}€</li>
           ))}
         </ul>
       ) : (
         <p>Aucune commande trouvée.</p>
       )}
           </div>
+          <br/>
           <button
             className="border border-black rounded-md bg-black text-white px-3 py-3"
             onClick={buttonReturnClick}
