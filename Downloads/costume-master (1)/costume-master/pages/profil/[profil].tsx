@@ -234,9 +234,7 @@ export default function Profil(){
         method: "patch",
         url: `http://localhost:5400/user/${id}`,
         headers: { "Authorization":'Bearer '+token,
-        "Access-Control-Allow-Origin": "http://localhost:3000", // Définir l'origine autorisée
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE", // Définir les méthodes autorisées
-        "Access-Control-Allow-Headers": "Content-Type, Authorization", // Définir les en-têtes autorisés
+       
       },
         data: {
           nom: data.nom,
