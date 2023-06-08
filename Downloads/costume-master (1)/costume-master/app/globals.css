@@ -1,0 +1,180 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  overflow: body;
+  background-color: #fff;
+ /* display: flex; */
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p{
+  font-family: "Poppins", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+/* component shooting */
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 1px;
+  grid-row-gap: 1px;
+  }
+  
+  .div1 { grid-area: 1 / 1 / 3 / 3; }
+  .div2 { grid-area: 3 / 1 / 6 / 3; }
+  .div3 { grid-area: 4 / 3 / 6 / 7; }
+  .div4 { grid-area: 1 / 3 / 4 / 5; }
+  .div5 { grid-area: 1 / 5 / 4 / 7; } 
+
+  .div1,
+  .div2,
+  .div3,
+  .div4,
+  .div5{
+    width: 100%;
+height: 100%;
+  }
+
+  .div1{
+    background-image: url('../images/armure.jpg');
+background-position: center;
+background-size: cover;
+
+  }
+
+  .div2{
+    background-image: url('../images/samurai.jpg');
+background-position: center;
+background-size: cover;
+  }
+
+  .div3{
+    background-image: url('../images/kimono.jpg');
+background-position: center;
+background-size: cover;
+  }
+
+  .div4{
+    background-image: url('../images/dia-de-los-muertos.jpg');
+background-position: center;
+background-size: cover;
+size: 100%;
+  }
+
+  .div5{
+    background-image: url('../images/armure.jpg');
+background-position: center;
+background-size: cover;
+  }
+
+  /*page.tsx*/
+
+  .phrase{
+    margin-bottom: 10px;
+  }
+
+  footer{
+   
+    background-color: #50644c;
+  }
+
+ /* nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #50644c;
+  }
+*/
+ 
+
+li > * {
+  margin: 0 10px;
+}
+
+/* component explain */
+
+.contain {
+  display: grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: repeat(4, 1fr);
+grid-column-gap: 4px;
+grid-row-gap: 0px; 
+  font-family: "Poppins", sans-serif;
+  }
+  
+  .diva { grid-area: 1 / 1 / 4 / 4; }
+  .divc { grid-area: 4 / 1 / 5 / 4; }
+  .divb { grid-area: 1 / 4 / 5 / 7; } 
+  
+ .loan{
+  margin-left: 50px;
+  padding: 10px;
+  color: white;
+  background-color: black;
+  border-radius: 10px
+ }
+
+/*page Contact */
+
+.coverContact{
+
+  background-color: transparent;
+}
+.titleContact{
+  font-family: "Poppins", sans-serif;
+}
+
+form{
+  font-family: "Poppins", sans-serif;
+}
+
+/*page Galerie */
+
+.img-galerie {
+  max-width: 150px;
+}
+
+/* page [titre] */
+.img-product{
+  height: 200px;
+  width: auto;
+}
+
+.resume {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  
+  .prod1 { grid-area: 1 / 1 / 5 / 4; }
+  .fenetre { grid-area: 1 / 5 / 5 / 6; }

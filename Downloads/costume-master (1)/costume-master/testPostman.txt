@@ -1,0 +1,41 @@
+pour tester un paiement paypal avec postman : 
+
+documentation paypal devloper onglet api&sdk aller dans api updatedRemovedCartItems
+
+ensuite onglet authentification a gauche on tombe sur une adresse ici : 
+
+https://api-m.sandbox.paypal.com/v1/oauth2/token
+
+ouvrir postman 
+
+methode post coller l'adresse
+
+Authorization sélectionner Bath Authorization
+puis mettre le client Id dans username
+et le secret key dans password
+
+ensuite sélectionner l'onglet body et sélectionne le format  x-www-form-urlencoded
+
+Dans le champ CLÉ, entrez .grant_type
+Dans le champ VALEUR, entrez .client_credentials
+
+Send
+
+voici le résultat
+
+{
+    "scope": "https://uri.paypal.com/services/invoicing https://uri.paypal.com/services/vault/payment-tokens/read https://uri.paypal.com/services/disputes/read-buyer https://uri.paypal.com/services/payments/realtimepayment https://uri.paypal.com/services/disputes/update-seller https://uri.paypal.com/services/payments/payment/authcapture openid https://uri.paypal.com/services/disputes/read-seller Braintree:Vault https://uri.paypal.com/services/payments/refund https://api.paypal.com/v1/vault/credit-card https://api.paypal.com/v1/payments/.* https://uri.paypal.com/payments/payouts https://uri.paypal.com/services/vault/payment-tokens/readwrite https://api.paypal.com/v1/vault/credit-card/.* https://uri.paypal.com/services/subscriptions https://uri.paypal.com/services/applications/webhooks",
+    "access_token": "A21AAKvehj4qr4QtXNyRw5q3pSHNa4hkZ7BB0YVfILIpVUd5U3REE41TOJm1fhi36lhQBzlpALstiTZlYZ2HYMdQxzyzZwFQw",
+    "token_type": "Bearer",
+    "app_id": "APP-80W284485P519543T",
+    "expires_in": 32400,
+    "nonce": "2023-05-16T16:47:42Z5ls_aSuyA67GRyVOiOYB4RSjVo9y8c3xeecNpN3JEI0"
+}
+
+
+Résultat de l’étape
+PayPal renvoie un jeton d’accès et le nombre de secondes pendant lesquelles le jeton 
+d’accès est valide. Lorsque vous effectuez des appels à une API REST, incluez le jeton 
+d’accès dans l’en-tête d’autorisation : . Lorsque votre jeton d’accès expire, appelez à 
+nouveau pour demander un nouveau jeton d’accès.-H Authorization: Bearer 
+ACCESS-TOKEN/v1/oauth2/token
